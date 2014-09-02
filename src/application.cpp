@@ -35,6 +35,8 @@ Todo
 #include "Spark_NeoPixel.h"
 #include "clickButton.h"
 
+SYSTEM_MODE(MANUAL);
+
 // Configuration Section 
 
 #define BROKER_IP_ADDRESS { 192, 168, 23, 20 }
@@ -126,7 +128,10 @@ PubSubClient client(server, 1883, callback, tcpClient);
 
  
 void setup() {
-  Spark.disconnect();
+  WiFi.connect();
+  while(WiFi.ready() == false) {
+    delay(100);
+  }
 
   // NeoPixels
   pinMode(NEOPIN,OUTPUT);
